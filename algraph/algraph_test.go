@@ -76,7 +76,21 @@ func TestNeighbors(t *testing.T) {
 }
 
 func TestAddVertex(t *testing.T) {
-	
+	a, b := Node{"a"}, Node{"b"}
+	neighbors := map[Node][]Node{
+		a: {b},
+	}
+	costs := map[Node]map[Node]float32{}
+	g := Graph{neighbors: neighbors, costs: costs}
+
+	newNode := Node{"c"}
+	g.AddVertex(newNode)
+
+	nodeList, err := g.Neighbors(newNode)
+	if nodeList == nil || err != nil {
+		t.Errorf("Can't find the node '%+v' int the graph '%+v'",
+			newNode, g)
+	}
 }
 
 func TestRemoveVertex(t *testing.T) {
